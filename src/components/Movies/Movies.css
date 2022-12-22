@@ -1,0 +1,35 @@
+.movies__btn {
+    width: calc(100% - 70px*2);
+    height: 36px;
+    margin: 50px auto 80px;
+    padding: 0;
+    background-color: #2F2F2F;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.movies__btn:hover {
+    opacity: .8;
+}
+
+@media screen and (max-width: 1279px) {
+    .movies__btn {
+        width: calc(100% - 30px*2);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .movies__btn {
+        width: calc(100% - 10px*2);
+    }
+}
+
