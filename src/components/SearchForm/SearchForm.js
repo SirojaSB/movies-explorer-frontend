@@ -17,7 +17,7 @@ function SearchForm() {
     return (
         <form className='search-form'>
             <label className='search-form__input-label'>
-                <input className='search-form__input' name='search-films' type="text" placeholder='Фильм'/>
+                <input className='search-form__input' name='search-films' type="text" placeholder='Фильм' required/>
                 <button className='search-form__btn' type='submit'>
                     <img className='search-form__icon' src={icon} alt='Иконка поиска'/>
                 </button>

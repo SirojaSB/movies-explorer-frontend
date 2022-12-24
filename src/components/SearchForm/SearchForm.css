@@ -31,6 +31,10 @@
     margin-left: 22px;
 }
 
+.search-form__input:focus {
+    border-bottom: 1px solid rgba(66, 133, 244, .2);
+}
+
 .search-form__btn {
     width: 91px;
     height: 34px;

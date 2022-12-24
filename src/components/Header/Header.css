@@ -142,7 +142,7 @@
     background-image: url("../../images/Burger-close-icon.svg");
     position: fixed;
     top: 15px;
-    right: 30px;
+    right: 14px;
 }
 
 .header__burger-btn:hover {
@@ -154,6 +154,13 @@
         width: calc(100% - 30px*2);
         padding: 0 30px 0;
     }
+}
+
+@media screen and (max-width: 767px) {
+    .header {
+        width: calc(100% - 14px*2);
+        padding: 0 14px 0;
+    }
 
     .header__page-nav {
         display: none;
@@ -161,13 +168,6 @@
 
     .header__burger-btn {
         display: block;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .header {
-        width: calc(100% - 14px*2);
-        padding: 0 14px 0;
     }
 
     .header__register {
@@ -180,15 +180,6 @@
         height: 26px;
         margin-left: 14px;
         font-size: 10px;
-    }
-
-    .header__burger-btn {
-        width: 40px;
-        height: 43px;
-    }
-
-    .header__burger-btn_close {
-        right: 14px;
     }
 }
 

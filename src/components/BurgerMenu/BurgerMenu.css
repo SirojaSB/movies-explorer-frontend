@@ -2,7 +2,7 @@
     display: none;
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 767px) {
     .burger-menu {
         background-color: rgba(0, 0, 0, .3);
         display: flex;
@@ -100,7 +100,7 @@
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 519px) {
     .burger-menu__content {
         width: 100%;
         padding: 144px 0 46px;

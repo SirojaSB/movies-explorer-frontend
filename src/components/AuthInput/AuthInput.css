@@ -20,3 +20,7 @@
     line-height: 16px;
     color: #fff;
 }
+
+.auth-input__input:focus {
+    outline: 1px solid rgba(66, 133, 244, .5)
+}
