@@ -1,0 +1,116 @@
+.promo {
+    width: calc(100% - 70px*2);
+    padding: 75px 70px;
+    background-color: #073042;
+    display: flex;
+    justify-content: space-between;
+}
+
+.promo__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.promo__title {
+    margin: 0;
+    max-width: 640px;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    padding-bottom: 36px;
+}
+
+.promo__text {
+    margin: 0;
+    max-width: 310px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    padding-bottom: 146px;
+    opacity: .5;
+}
+
+.promo__nav {
+    width: 127px;
+    height: 34px;
+    border: 1px solid rgba(255, 255, 255, .6);
+    border-radius: 3px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: opacity 0.3s ease;
+}
+
+.promo__nav:hover {
+    opacity: .7;
+}
+
+.promo__img {
+    width: 310px;
+    height: 304px;
+}
+
+@media screen and (max-width: 1279px) {
+    .promo {
+        width: 100%;
+        padding: 140px 0 76px;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .promo__img {
+        margin-bottom: 48px;
+    }
+
+    .promo__info {
+        align-items: center;
+    }
+
+    .promo__title {
+        font-size: 40px;
+        line-height: 50px;
+        padding-bottom: 22px;
+        text-align: center;
+    }
+
+    .promo__text {
+        text-align: center;
+        padding-bottom: 92px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .promo {
+        padding: 70px 0 30px;
+    }
+
+    .promo__title {
+        max-width: 300px;
+        font-size: 30px;
+        line-height: 38px;
+        padding-bottom: 24px;
+        letter-spacing: -0.04em;
+    }
+
+    .promo__text {
+        padding-bottom: 80px;
+    }
+
+    .promo__nav {
+        width: 129px;
+        height: 36px;
+    }
+
+    .promo__img {
+        width: 210px;
+        height: 206px;
+        margin-bottom: 44px;
+    }
+}
