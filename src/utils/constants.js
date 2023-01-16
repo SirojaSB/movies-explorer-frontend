@@ -1,0 +1,10 @@
+export const EMAIL_PATTERN = '[A-z0-9_.-]{1,}@[A-z0-9_.-]{1,}[.][A-z]{2,6}'
+
+export const EDITING_CONFIRMATION_MESSAGE = 'Изменения сохранены.'
+export const EDITING_CONFIRMATION_ERROR_MESSAGE = 'При обновлении профиля произошла ошибка.'
+export const VALIDATION_ERROR_MESSAGE = 'Validation failed'
+export const REGISTER_ERROR_MESSAGE = 'При регистрации пользователя произошла ошибка.'
+export const LOGIN_ERROR_MESSAGE = 'При авторизации произошла ошибка.'
+export const TOKEN_INVALID_MESSAGE = 'При авторизации произошла ошибка. Переданный токен некорректен. Требуется повторная авторизация'
+export const NOT_FOUND_MOVIES_MESSAGE = 'Фильмы не найдены. Попробуйте ввести другое ключевое слово'
+export const NOT_FOUND_SAVED_MOVIES_MESSAGE = 'У вас нет сохраненных фильмов'

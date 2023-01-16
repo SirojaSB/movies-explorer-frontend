@@ -4,7 +4,7 @@ import {Link, NavLink, useLocation} from 'react-router-dom';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import {useState} from "react";
 
-function Header() {
+function Header({isLoggedIn}) {
 
     const [isBurger, setIsBurger] = useState(false)
 
@@ -27,7 +27,7 @@ function Header() {
     return (
         <header className={`header ${isMain && 'header_place_main'}`}>
             <Link to='/' className='header__logo' />
-            { isMain ? (
+            { !isLoggedIn ? (
                 <div className='header__auth'>
                     <Link to='/signup' className='header__register'>Регистрация</Link>
                     <Link to='/signin' className='header__login'>Войти</Link>

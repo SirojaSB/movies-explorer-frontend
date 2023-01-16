@@ -1,23 +1,30 @@
+import {useState} from "react";
 import './SearchForm.css'
 import icon from '../../images/Search-icon.svg'
-import {useState} from "react";
 
-function SearchForm() {
+function SearchForm({searchMovies, handleCheckbox, isShortMovie, actualValue}) {
+    const [searchValue, setSearchValue] = useState( actualValue || '');
 
-    const [isCheck, setIsCheck] = useState(false)
+    const onChange = (e) => {
+        setSearchValue(e.target.value);
+    }
 
-    const handleCheckbox = () => {
-        if (isCheck) {
-            setIsCheck(false)
-        } else {
-            setIsCheck(true)
-        }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        searchMovies(searchValue);
     }
 
     return (
-        <form className='search-form'>
+        <form className='search-form' onSubmit={handleSubmit}>
             <label className='search-form__input-label'>
-                <input className='search-form__input' name='search-films' type="text" placeholder='Фильм' required/>
+                <input className='search-form__input'
+                       name='search-films'
+                       type="text"
+                       value={searchValue}
+                       onChange={onChange}
+                       placeholder='Фильм'
+                       required/>
                 <button className='search-form__btn' type='submit'>
                     <img className='search-form__icon' src={icon} alt='Иконка поиска'/>
                 </button>
@@ -25,7 +32,7 @@ function SearchForm() {
             <label className='search-form__checkbox-label'>
                 Короткометражки
                 <input className='search-form__checkbox' name='short-films' type='checkbox' onChange={handleCheckbox}/>
-                <span className={`search-form__checkbox-visible ${isCheck && 'search-form__checkbox-visible_active'}`} />
+                <span className={`search-form__checkbox-visible ${isShortMovie && 'search-form__checkbox-visible_active'}`} />
             </label>
         </form>
     )

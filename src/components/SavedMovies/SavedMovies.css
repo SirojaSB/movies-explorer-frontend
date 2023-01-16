@@ -1,0 +1,20 @@
+.saved-movies__error-message {
+    width: calc(100% - 70px*2);
+    color: #8B8B8B;
+    margin: 40px auto 0;
+    padding: 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1279px) {
+    .saved-movies__error-message {
+        width: calc(100% - 30px*2);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .saved-movies__error-message {
+        width: calc(100% - 10px*2);
+    }
+}
