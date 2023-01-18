@@ -1,18 +1,12 @@
-import {useState} from "react";
 import './SearchForm.css'
 import icon from '../../images/Search-icon.svg'
 
-function SearchForm({searchMovies, handleCheckbox, isShortMovie, actualValue}) {
-    const [searchValue, setSearchValue] = useState( actualValue || '');
-
-    const onChange = (e) => {
-        setSearchValue(e.target.value);
-    }
+function SearchForm({onSubmit, handleCheckbox, isShortMovie, onChange, searchValue}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        searchMovies(searchValue);
+        onSubmit()
     }
 
     return (

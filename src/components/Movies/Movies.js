@@ -2,36 +2,53 @@ import './Movies.css'
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import {NOT_FOUND_MOVIES_MESSAGE} from "../../utils/constants";
-import {useEffect} from "react";
+import {NOT_FOUND_MOVIES_MESSAGE, WITHOUT_SEARCH_MESSAGE} from "../../utils/constants";
+import {useEffect, useState} from "react";
 
 function Movies({
             searchMovies,
-            handleCheckbox,
-            isShortMovie,
             onToggle,
             movies,
             addMoreCards,
             hideAddCardsBtn,
-            actualValue,
             onSave,
             onRemove,
-            isRequested
+            isRequested,
+            isFirstSearch
 }) {
+    const [searchValue, setSearchValue] = useState( localStorage.getItem('requestedText') || '')
+    const [isShortMovie, setIsShortMovie] = useState( JSON.parse(sessionStorage.getItem('checkbox')) || false)
+
+    const handleCheckbox = () => {
+        if (isShortMovie) {
+            setIsShortMovie(false)
+        } else {
+            setIsShortMovie(true)
+        }
+    }
+
+    const onChange = (e) => {
+        setSearchValue(e.target.value)
+    }
+
+    const onSubmit = () => {
+        searchMovies(searchValue, isShortMovie)
+    }
 
     useEffect(() => {
-        onToggle(actualValue)
+        onToggle(searchValue, isShortMovie)
     }, [isShortMovie])
 
     return (
         <main className='movies__content'>
-            <SearchForm searchMovies={searchMovies}
+            <SearchForm onSubmit={onSubmit}
+                        searchValue={searchValue}
                         handleCheckbox={handleCheckbox}
                         isShortMovie={isShortMovie}
-                        actualValue={actualValue}/>
+                        onChange={onChange}/>
             {isRequested ? <Preloader/> : null}
             {!isRequested && !movies.length ? (
-                <p className='movies__error-message'>{NOT_FOUND_MOVIES_MESSAGE}</p>
+                <p className='movies__error-message'>{isFirstSearch ? WITHOUT_SEARCH_MESSAGE : NOT_FOUND_MOVIES_MESSAGE}</p>
             ) : null}
             <MoviesCardList movies={movies} onSave={onSave} onRemove={onRemove}/>
             {!hideAddCardsBtn ? (

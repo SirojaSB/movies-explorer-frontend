@@ -21,7 +21,12 @@ import {
     VALIDATION_ERROR_MESSAGE,
     REGISTER_ERROR_MESSAGE,
     LOGIN_ERROR_MESSAGE,
-    TOKEN_INVALID_MESSAGE
+    TOKEN_INVALID_MESSAGE,
+    DESKTOP_COMPONENT_SIZE,
+    TABLET_COMPONENT_SIZE,
+    DESKTOP_RESULT_BLOCK_PARAMS,
+    TABLET_RESULT_BLOCK_PARAMS,
+    MOBILE_RESULT_BLOCK_PARAMS
 } from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 
@@ -30,10 +35,7 @@ function App() {
     const [foundMovies, setFoundMovies] = useState([])
     const [resultBlock, setResultBlock] = useState([])
     const [foundMoviesWithCheckbox, setFoundMoviesWithCheckbox] = useState([])
-    const [isShortMovie, setIsShortMovie] = useState( false)
     const [cardsParams, setCardsParams] = useState({})
-    const [actualSearchValue, setActualSearchValue] = useState('')
-    const [actualSearchValueSaved, setActualSearchValueSaved] = useState('')
     const [savedMovies, setSavedMovies] = useState([])
     const [filteredSavedMovies, setFilteredSavedMovies] = useState([])
     const [currentUser, setCurrentUser] = useState({})
@@ -42,6 +44,7 @@ function App() {
     const [errorMessage, setErrorMessage] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [isRequested, setIsRequested] = useState(false)
+    const [isFirstSearch, setIsFirstSearch] = useState(true)
 
     const withHeaderPages = ['/', '/movies', '/saved-movies', '/profile']
     const withFooterPages = ['/', '/movies', '/saved-movies']
@@ -55,15 +58,8 @@ function App() {
 
     const navigate = useNavigate();
 
-    const handleCheckbox = () => {
-        if (isShortMovie) {
-            setIsShortMovie(false)
-        } else {
-            setIsShortMovie(true)
-        }
-    }
-
-    const searchMovies = async (requestedText) => {
+    const searchMovies = async (requestedText, isShortMovie) => {
+        setIsFirstSearch(false)
         setIsRequested(true)
         try {
             const resMovies = await moviesApi.getMovies()
@@ -78,8 +74,6 @@ function App() {
 
             calculateNumberOfCards()
 
-            setActualSearchValue(localStorage.getItem('requestedText') || '')
-
             setIsRequested(false)
         } catch (err) {
             console.log(err)
@@ -87,10 +81,9 @@ function App() {
         }
     }
 
-    const searchSavedMovies = (requestedText) => {
+    const searchSavedMovies = (requestedText, isShortMovie) => {
         const filteredMovies = filterMovies(savedMovies, requestedText, isShortMovie)
         setFilteredSavedMovies(filteredMovies)
-        setActualSearchValueSaved(requestedText)
     }
 
     const filterMovies = (movies, requestedText, isShortMovie) => {
@@ -106,7 +99,7 @@ function App() {
         })
     }
 
-    const filterFoundMoviesWithCheckbox = (requestedText) => {
+    const filterFoundMoviesWithCheckbox = (requestedText, isShortMovie) => {
         const filteredMovies = filterMovies(foundMovies, requestedText, isShortMovie)
         setFoundMoviesWithCheckbox(filteredMovies)
     }
@@ -122,13 +115,13 @@ function App() {
     const calculateNumberOfCards = () => {
         const pageWidth = document.documentElement.clientWidth;
 
-        if (pageWidth > 1262) {
-            return setCardsParams({numberOfCards: 12, row: 3, addCards: 3})
+        if (pageWidth > DESKTOP_COMPONENT_SIZE) {
+            return setCardsParams(DESKTOP_RESULT_BLOCK_PARAMS)
         }
-        if (pageWidth > 750) {
-            return setCardsParams({numberOfCards: 8, row: 2, addCards: 2})
+        if (pageWidth > TABLET_COMPONENT_SIZE) {
+            return setCardsParams(TABLET_RESULT_BLOCK_PARAMS)
         } else {
-            setCardsParams({numberOfCards: 5, row: 1, addCards: 2})
+            setCardsParams(MOBILE_RESULT_BLOCK_PARAMS)
         }
 
     }
@@ -234,6 +227,7 @@ function App() {
             setCurrentUser(user)
             setIsLoggedIn(true)
             localStorage.setItem('jwt', token)
+            getSavedMovies()
             navigate('/movies')
         } catch (err) {
             if(err.message === VALIDATION_ERROR_MESSAGE) {
@@ -289,9 +283,27 @@ function App() {
         getSavedMovies()
     }, [])
 
-    const handleLogout = () => {
-        localStorage.removeItem('jwt')
+    const clearData = () => {
+        setFoundMovies([])
+        setResultBlock([])
+        setFoundMoviesWithCheckbox([])
+        setCardsParams({})
+        setSavedMovies([])
+        setFilteredSavedMovies([])
+        setCurrentUser({})
         setIsLoggedIn(false)
+        setValidationMessage('')
+        setErrorMessage('')
+        setIsFirstSearch(true)
+
+        localStorage.removeItem('jwt')
+        localStorage.removeItem('requestedText')
+        sessionStorage.removeItem('checkbox')
+        sessionStorage.removeItem('filteredMovies')
+    }
+
+    const handleLogout = () => {
+        clearData()
         navigate('/')
     }
 
@@ -307,25 +319,20 @@ function App() {
                               <ProtectedRoute
                                   movies={tagMovieWithLike(resultBlock)}
                                   searchMovies={searchMovies}
-                                  handleCheckbox={handleCheckbox}
-                                  isShortMovie={isShortMovie}
                                   onToggle={filterFoundMoviesWithCheckbox}
                                   addMoreCards={addMoreCards}
                                   hideAddCardsBtn={foundMoviesWithCheckbox.length === resultBlock.length}
-                                  actualValue={actualSearchValue}
                                   isLoggedIn={isLoggedIn}
                                   onSave={saveMovie}
                                   onRemove={deleteMovie}
                                   isRequested={isRequested}
+                                  isFirstSearch={isFirstSearch}
                                   Component={Movies} />} />
                           <Route path='/saved-movies' element={<ProtectedRoute
                               savedMovies={filteredSavedMovies}
                               isLoggedIn={isLoggedIn}
-                              actualValue={actualSearchValueSaved}
                               onRemove={deleteMovie}
                               searchMovies={searchSavedMovies}
-                              handleCheckbox={handleCheckbox}
-                              isShortMovie={isShortMovie}
                               isRequested={isRequested}
                               Component={SavedMovies} />} />
                           <Route path='/profile' element={<ProtectedRoute
