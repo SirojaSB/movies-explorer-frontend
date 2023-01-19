@@ -26,7 +26,8 @@ import {
     TABLET_COMPONENT_SIZE,
     DESKTOP_RESULT_BLOCK_PARAMS,
     TABLET_RESULT_BLOCK_PARAMS,
-    MOBILE_RESULT_BLOCK_PARAMS
+    MOBILE_RESULT_BLOCK_PARAMS,
+    SHORT_MOVIE_DURATION
 } from "../../utils/constants";
 import Preloader from "../Preloader/Preloader";
 
@@ -61,6 +62,8 @@ function App() {
     const searchMovies = async (requestedText, isShortMovie) => {
         setIsFirstSearch(false)
         setIsRequested(true)
+        localStorage.setItem('requestedText', requestedText)
+        sessionStorage.setItem('checkbox', isShortMovie)
         try {
             const resMovies = await moviesApi.getMovies()
 
@@ -87,13 +90,11 @@ function App() {
     }
 
     const filterMovies = (movies, requestedText, isShortMovie) => {
-        localStorage.setItem('requestedText', requestedText)
-        sessionStorage.setItem('checkbox', isShortMovie)
         return movies.filter(({nameRU, nameEN, duration}) => {
             const apiTextToLowerCase = (nameRU + nameEN).toLowerCase()
             const requestedTextToLowerCase = requestedText.toLowerCase()
 
-            const checkbox = isShortMovie ? duration <= 40 : true
+            const checkbox = isShortMovie ? duration <= SHORT_MOVIE_DURATION : true
 
             return checkbox && apiTextToLowerCase.includes(requestedTextToLowerCase)
         })

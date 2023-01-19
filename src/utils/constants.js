@@ -16,3 +16,5 @@ export const TABLET_COMPONENT_SIZE = 750
 export const DESKTOP_RESULT_BLOCK_PARAMS = {numberOfCards: 12, row: 3, addCards: 3}
 export const TABLET_RESULT_BLOCK_PARAMS = {numberOfCards: 8, row: 2, addCards: 2}
 export const MOBILE_RESULT_BLOCK_PARAMS = {numberOfCards: 5, row: 1, addCards: 2}
+
+export const SHORT_MOVIE_DURATION = 40
