@@ -31,10 +31,12 @@
 .movies-card__save-btn_active {
     width: 21px;
     background-color: #EE3465;
+    display: flex;
 }
 
 .movies-card__save-btn_remove {
     width: 21px;
+    display: flex;
 }
 
 .movies-card:hover > .movies-card__save-btn {
