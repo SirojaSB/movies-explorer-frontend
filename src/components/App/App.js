@@ -102,6 +102,7 @@ function App() {
 
     const filterFoundMoviesWithCheckbox = (requestedText, isShortMovie) => {
         const filteredMovies = filterMovies(foundMovies, requestedText, isShortMovie)
+        sessionStorage.setItem('checkbox', isShortMovie)
         setFoundMoviesWithCheckbox(filteredMovies)
     }
 
