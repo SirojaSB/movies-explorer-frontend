@@ -2,6 +2,7 @@
 
 ### Ссылка на сайт размещенный на сервере: https://movies-siroja.nomoredomains.rocks/
 ### Api: https://api.movies-siroja.nomoredomains.club/
+### Backend: https://github.com/SirojaSB/movies-explorer-api
 ### Ссылка на архив с макетом: https://drive.google.com/file/d/1VHfMRrpWtXtWGWaZQXxta9wxrcoHOEHy/view?usp=sharing
 
 ## Описание:
